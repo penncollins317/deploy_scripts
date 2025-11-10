@@ -1,0 +1,43 @@
+services:
+  web:
+    build: .
+    container_name: odoo17
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+  db:
+    image: postgres:16
+    container_name: odoo17_db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+  redis:
+    image: redis:latest
+    container_name: odoo17_redis
+    volumes:
+      - odoo-redis:/data
+  nginx:
+    image: nginx:latest
+    container_name: odoo17_nginx
+    restart: always
+    depends_on:
+      - web
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/log:/var/log/nginx
+
+volumes:
+  odoo-web-data:
+  odoo-db-data:
+  odoo-redis:

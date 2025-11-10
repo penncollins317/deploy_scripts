@@ -1,0 +1,15 @@
+redis
+redlock-py
+wechatpayv3
+alipay-sdk-python
+minio
+qiniu
+oss2
+pyjwt
+pandas
+openpyxl
+xmltodict
+python-barcode
+pika
+alibabacloud_dysmsapi20170525
+pydantic
