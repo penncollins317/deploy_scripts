@@ -3,6 +3,9 @@ services:
     build: .
     container_name: odoo17
     restart: always
+    ports:
+      - "8069:8069"
+      - "8072:8072"
     depends_on:
       - db
     volumes:
@@ -21,6 +24,7 @@ services:
   redis:
     image: redis:latest
     container_name: odoo17_redis
+    restart: always
     volumes:
       - odoo-redis:/data
   nginx:
