@@ -1,14 +1,13 @@
 #!/usr/bin/bash
 
 # 下载最新版本
-VERSION=$(curl -s https://api.github.com/repos/Mirantis/cri-dockerd/releases/latest | grep tag_name | cut -d '"' -f 4)
-wget https://ghproxy.cn/https://github.com/Mirantis/cri-dockerd/releases/download/${VERSION}/cri-dockerd-${VERSION#v}.amd64.tgz
-
+VERSION=v0.3.21
+wget https://github.com/Mirantis/cri-dockerd/releases/download/v0.3.21/cri-dockerd-0.3.21.amd64.tgz
 # 解压并安装
-tar xvf cri-dockerd-${VERSION#v}.amd64.tgz
+tar xvf cri-dockerd-0.3.21.amd64.tgz
 sudo mv cri-dockerd/cri-dockerd /usr/local/bin/
 
-rm -rf cri-dockerd-${VERSION#v}.amd64.tgz
+rm -rf cri-dockerd-v0.3.21.amd64.tgz
 rm -rf cri-dockerd
 
 sudo tee /etc/systemd/system/cri-docker.service <<EOF
@@ -48,3 +47,6 @@ EOF
 sudo systemctl daemon-reload
 sudo systemctl enable cri-docker.service --now
 sudo systemctl enable cri-docker.socket --now
+
+# 测试
+sudo crictl --runtime-endpoint unix:///var/run/cri-dockerd.sock info

@@ -52,7 +52,7 @@ sudo kubeadm config images pull \
 sudo docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9
 sudo docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9 k8s.gcr.io/pause:3.9
 sudo docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9 registry.k8s.io/pause:3.9
-
+sudo kubeadm reset
 
 sudo kubeadm init \
   --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers \
@@ -60,9 +60,12 @@ sudo kubeadm init \
   --kubernetes-version=v1.34.1 \
   --pod-network-cidr=10.244.0.0/16
 
-
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+#kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+kubectl apply -f ./kube-flannel.yml
+
+# 移除主节点
+# kubectl taint nodes <master-name> node-role.kubernetes.io/control-plane-
