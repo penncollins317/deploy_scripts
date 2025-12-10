@@ -38,7 +38,6 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
     "data-root": "/data/docker",
     "exec-opts": ["native.cgroupdriver=systemd"],
     "storage-driver": "overlay2",
-    "iptables": false,
     "registry-mirrors": [
     "https://docker.m.daocloud.io",
     "https://docker.imgdb.de",
