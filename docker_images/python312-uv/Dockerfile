@@ -1,5 +1,6 @@
 # 基础 Python 镜像
-FROM python:3.12-slim
+FROM python:3.12-slim-bookworm
+
 LABEL description="Python 3.12 slim with uv and HuaweiCloud PyPI mirror"
 
 # 统一工作目录（供子镜像继承）

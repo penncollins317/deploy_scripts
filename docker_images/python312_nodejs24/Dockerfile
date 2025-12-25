@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.12-slim-bookworm
 
 LABEL description="Python 3.12 + Node.js 24.12.0 base image"
 
