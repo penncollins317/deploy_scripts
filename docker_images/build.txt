@@ -1,0 +1,5 @@
+sudo docker build -t $(basename "$PWD") .
+
+
+
+sudo docker system prun -a
